@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1sge3nyw77iq"]
+[gd_scene load_steps=11 format=3 uid="uid://b1sge3nyw77iq"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_m6hp7"]
 [ext_resource type="Texture2D" uid="uid://c2vn0b72e5mt5" path="res://Player/player.png" id="2_rqeuv"]
@@ -17,6 +17,12 @@ height = 80.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_du6cs"]
 size = Vector2(16, 56)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_r4jug"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_m6hp7")
@@ -50,6 +56,9 @@ shape = SubResource("RectangleShape2D_du6cs")
 [node name="Health" type="Node" parent="."]
 script = ExtResource("6_6l17m")
 max_health = 50.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_r4jug")
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
