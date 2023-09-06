@@ -4,7 +4,7 @@ extends Control
 @export var port: int = 8910
 @export var max_player_count: int = 2
 
-var peer
+var peer = ENetMultiplayerPeer.new()
 
 
 
@@ -52,19 +52,11 @@ func _on_start_game_pressed():
 func _on_join_game_pressed():
     if $Address.text:
         address = $Address.text
-    peer = ENetMultiplayerPeer.new()
     peer.create_client(address, port)
-    peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-    multiplayer.set_multiplayer_peer(peer)
+    multiplayer.multiplayer_peer = peer
 
 func _on_host_game_pressed():
     peer = ENetMultiplayerPeer.new()
-    var error = peer.create_server(port, max_player_count)
-    if error != OK:
-        print("Cannot host: " + str(error))
-        return
-    # Compression
-    peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-    multiplayer.set_multiplayer_peer(peer)
+    peer.create_server(port)
+    multiplayer.multiplayer_peer = peer
     print("Waiting for players...")
-    send_player_information($Name.text, multiplayer.get_unique_id())
