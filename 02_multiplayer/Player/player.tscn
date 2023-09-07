@@ -60,6 +60,19 @@ max_health = 50.0
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_r4jug")
 
+[node name="Node" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Node"]
+offset_right = 281.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 32
+text = "Press \"Space\" to Rotate Input Vector"
+
+[node name="Label2" type="Label" parent="Node"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_changed"]
