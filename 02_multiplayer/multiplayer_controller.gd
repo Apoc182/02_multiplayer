@@ -42,6 +42,7 @@ func send_player_information(name: String, id: int) -> void:
 @rpc("any_peer", "call_local")
 func start_game():
     var scene = load("res://room.tscn").instantiate()
+    scene.player_color = $ColorPickerButton.color
     get_tree().root.add_child(scene)
     hide()
 

@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED: int = 384
 
 @onready var health: Health = $Health
+var color: Color 
 
 func is_this_client() -> bool:
     return $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
@@ -21,6 +22,8 @@ func _physics_process(_delta):
 
 func _ready():
     $MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
+    $Sprite2D.modulate = color
+
 
 func get_input_direction() -> Vector2:
     var input_direction_x = Input.get_axis("move_left", "move_right")
