@@ -6,7 +6,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cylkp"]
 texture = ExtResource("1_fm3ah")
-texture_region_size = Vector2i(128, 64)
+texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
