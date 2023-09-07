@@ -1,6 +1,5 @@
 extends Control
 
-@export var address: String = "127.0.0.1"
 @export var port: int = 8910
 @export var max_player_count: int = 2
 
@@ -50,13 +49,14 @@ func _on_start_game_pressed():
     start_game.rpc()
 
 func _on_join_game_pressed():
-    if $Address.text:
-        address = $Address.text
+    var address = $Address.text
     peer.create_client(address, port)
     multiplayer.multiplayer_peer = peer
+    $StartGame.disabled = true
 
 func _on_host_game_pressed():
     peer = ENetMultiplayerPeer.new()
     peer.create_server(port)
     multiplayer.multiplayer_peer = peer
     print("Waiting for players...")
+    send_player_information($Name.text, multiplayer.get_unique_id())
