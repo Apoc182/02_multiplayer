@@ -43,7 +43,7 @@ func _on_health_changed(current_health):
     print(name + " has " + str(current_health) + " health remaining")
     if current_health <= 0:
         print (name + " is dead")
-        queue_free()
+        hide()
 
 
 func cartesian_to_isometric(cartesian_vector: Vector2) -> Vector2:
