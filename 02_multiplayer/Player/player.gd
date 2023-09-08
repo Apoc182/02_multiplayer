@@ -17,6 +17,7 @@ enum FacingDirection {LEFT = -1, RIGHT = 1}
 @export var sword_hit_state: ActorState
 
 @onready var health: Health = $Health
+@onready var health_bar = $HealthBar
 
 
 func _ready():
@@ -27,6 +28,9 @@ func _ready():
     animation_tree = $AnimationTree
     state_machine = $StateMachine
     state_machine.init(self)
+
+    update_health_bar(health.current_health)
+    
 
 
 func _physics_process(delta):
@@ -41,9 +45,17 @@ func is_this_client() -> bool:
 
 
 func get_input_direction() -> Vector2:
-    var input_direction_x = Input.get_axis("move_left", "move_right")
-    var input_direction_y = Input.get_axis("move_up", "move_down")
-    return Vector2(input_direction_x, input_direction_y)
+    var analog_input_direction = Vector2.ZERO
+    analog_input_direction.x = Input.get_axis("analog_move_left", "analog_move_right")
+    analog_input_direction.y = Input.get_axis("analog_move_up", "analog_move_down")
+    if analog_input_direction:
+        return analog_input_direction
+        
+    var input_direction = Vector2.ZERO
+    input_direction.x = Input.get_axis("move_left", "move_right")
+    input_direction.y = Input.get_axis("move_up", "move_down")
+    input_direction = cartesian_to_isometric(input_direction)
+    return input_direction
 
 
 func _on_hurtbox_hit(damage, direction):
@@ -67,12 +79,25 @@ func _on_health_changed(current_health):
     if not is_this_client():
         return
     
-    print(name + " has " + str(current_health) + " health remaining")
+    update_health_bar(current_health)
+    
     if current_health <= 0:
-        print (name + " is dead")
         hide()
+        global_position = Vector2(-9999,-9999)
 
 
+func update_health_bar(current_health):
+    health_bar.max_value = health.max_health
+    health_bar.value = current_health
+    
+    if current_health < health.max_health * 0.25:
+        health_bar.modulate = Color.RED
+    elif current_health < health.max_health * 0.5:
+        health_bar.modulate = Color.YELLOW
+    else:
+        health_bar.modulate = Color.GREEN
+
+    
 func cartesian_to_isometric(cartesian_vector: Vector2) -> Vector2:
     var isometric_vector = Vector2.ZERO
     cartesian_vector = cartesian_vector.rotated(deg_to_rad(315))
@@ -84,9 +109,11 @@ func cartesian_to_isometric(cartesian_vector: Vector2) -> Vector2:
 
 
 func set_facing_direction(direction: float):
-    if direction < 0:
+    direction = round(direction)
+    
+    if direction == -1:
         facing_direction = FacingDirection.LEFT
-    if direction > 0:
+    if direction == 1:
         facing_direction = FacingDirection.RIGHT
 
     animation_tree.set("parameters/idle/blend_position", facing_direction)
