@@ -6,7 +6,7 @@ var actor: Actor
 
 
 func _enter():
-    actor.animation_player.play(state_animation_name)
+    actor.animation_tree.get("parameters/playback").travel(state_animation_name)
 
 
 func _animation_finished():

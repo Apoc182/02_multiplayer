@@ -10,6 +10,5 @@ func init(actor: Actor):
     current_state._enter()
 
 
-func _on_animation_player_animation_finished(anim_name):
-    if anim_name == current_state.state_animation_name:
-        current_state._animation_finished()
+func _on_animation_tree_animation_finished(_anim_name):
+    current_state._animation_finished()

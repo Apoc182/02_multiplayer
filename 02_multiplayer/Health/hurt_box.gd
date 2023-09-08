@@ -1,7 +1,8 @@
+class_name HurtBox
 extends Area2D
 
 
-signal hit(damage, x_direction)
+signal hit(damage, direction)
 
 
 func take_damage(damage: float, direction: Vector2):

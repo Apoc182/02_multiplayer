@@ -5,8 +5,8 @@ extends ActorState
 
 
 func _enter():
-    actor.velocity = actor.KNOCKBACK_SPEED * actor.knockback_direction
-    actor.set_facing_direction(-actor.knockback_direction.x)
+    actor.velocity = actor.MOVE_SPEED * -actor.knockback_direction
+    actor.set_facing_direction(actor.knockback_direction.x)
     super()
 
 
