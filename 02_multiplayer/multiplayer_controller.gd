@@ -9,6 +9,7 @@ var peer = ENetMultiplayerPeer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+    $ColorPickerButton.color = Color(randf(), randf(), randf())
     multiplayer.peer_connected.connect(peer_connected)
     multiplayer.peer_disconnected.connect(peer_disconnected)
     multiplayer.connected_to_server.connect(connected_to_server)
