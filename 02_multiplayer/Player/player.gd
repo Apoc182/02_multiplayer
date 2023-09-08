@@ -15,7 +15,7 @@ var damage_direction: Vector2 = Vector2.ZERO
 @onready var health: Health = $Health
 
 func is_this_client() -> bool:
-    return true
+    return $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
 
 func _physics_process(delta):
     if not is_this_client():
