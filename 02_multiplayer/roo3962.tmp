@@ -1,0 +1,257 @@
+[gd_scene load_steps=27 format=3 uid="uid://y103eoxpjms6"]
+
+[ext_resource type="Script" path="res://scene_manager.gd" id="1_11g4w"]
+[ext_resource type="Texture2D" uid="uid://cdtuvxuxcld8x" path="res://tile_floor.png" id="1_fm3ah"]
+[ext_resource type="PackedScene" uid="uid://durrpn2bcnie8" path="res://Player/player.tscn" id="2_klhy6"]
+[ext_resource type="Shader" path="res://white.gdshader" id="4_i7wg0"]
+[ext_resource type="Script" path="res://Player/player.gd" id="5_ijaxx"]
+[ext_resource type="Script" path="res://Health/hit_box.gd" id="6_eld47"]
+[ext_resource type="Texture2D" uid="uid://o4mfccqnn30v" path="res://Player/sword.png" id="7_vyyh4"]
+[ext_resource type="Texture2D" uid="uid://c2vn0b72e5mt5" path="res://Player/player.png" id="8_ypgq8"]
+[ext_resource type="Texture2D" uid="uid://c2fw5wvord1kq" path="res://Player/player_eyes.png" id="9_ffaeg"]
+[ext_resource type="Script" path="res://Health/hurt_box.gd" id="10_d1lfv"]
+[ext_resource type="Script" path="res://Health/health.gd" id="11_shohr"]
+[ext_resource type="Script" path="res://Player/Player States/actor_state_machine.gd" id="12_7dium"]
+[ext_resource type="Script" path="res://Player/Player States/move_state.gd" id="13_r3srr"]
+[ext_resource type="Script" path="res://Player/Player States/attack_state.gd" id="14_e71mg"]
+[ext_resource type="Script" path="res://Player/Player States/hurt_state.gd" id="15_phxy3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cylkp"]
+texture = ExtResource("1_fm3ah")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -32, -64, 0, 0, 32, 64, 0)
+
+[sub_resource type="TileSet" id="TileSet_yh6op"]
+tile_shape = 1
+tile_layout = 1
+tile_size = Vector2i(128, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_cylkp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpxik"]
+shader = ExtResource("4_i7wg0")
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_du6cs"]
+size = Vector2(16, 56)
+
+[sub_resource type="Animation" id="Animation_rgjwt"]
+resource_name = "idle"
+length = 0.80001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_lilhp"]
+resource_name = "slash"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 3.14159, 4.71239, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5v8xc"]
+resource_name = "hurt"
+length = 0.166675
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t8xa4"]
+_data = {
+"hurt": SubResource("Animation_5v8xc"),
+"idle": SubResource("Animation_rgjwt"),
+"slash": SubResource("Animation_lilhp")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmdc3"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rkysv"]
+radius = 16.0
+height = 80.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_r4jug"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("Sprite2D:modulate")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("Label:text")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_11g4w")
+player_scene = ExtResource("2_klhy6")
+
+[node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_yh6op")
+format = 2
+layer_0/tile_data = PackedInt32Array(1048589, 0, 0, 196615, 0, 0, 262151, 196608, 0, 327688, 131072, 0, 393224, 0, 0, 458761, 65536, 0, 524297, 0, 0, 589834, 65536, 0, 655370, 0, 0, 720907, 0, 0, 786443, 196608, 0, 851980, 131072, 0, 917516, 131072, 0, 983053, 0, 0, 262150, 65536, 0, 327687, 0, 0, 393223, 0, 0, 458760, 65536, 0, 524296, 0, 0, 589833, 0, 0, 655369, 0, 0, 720906, 0, 0, 786442, 131072, 0, 851979, 0, 0, 917515, 196608, 0, 983052, 65536, 0, 1048588, 0, 0, 1114125, 0, 0, 327686, 0, 0, 393222, 65536, 0, 458759, 0, 0, 524295, 0, 0, 589832, 0, 0, 655368, 0, 0, 720905, 0, 0, 786441, 0, 0, 851978, 0, 0, 917514, 196608, 0, 983051, 0, 0, 1048587, 196608, 0, 1114124, 0, 0, 1179660, 0, 0, 393221, 65536, 0, 458758, 0, 0, 524294, 0, 0, 589831, 0, 0, 655367, 65536, 0, 720904, 0, 0, 786440, 131072, 0, 851977, 0, 0, 917513, 0, 0, 983050, 0, 0, 1048586, 0, 0, 1114123, 0, 0, 1179659, 65536, 0, 1245196, 0, 0, 458757, 131072, 0, 524293, 0, 0, 589830, 0, 0, 655366, 196608, 0, 720903, 0, 0, 786439, 0, 0, 851976, 65536, 0, 917512, 0, 0, 983049, 131072, 0, 1048585, 0, 0, 1114122, 0, 0, 1179658, 196608, 0, 1310731, 196608, 0, 1245195, 0, 0, 524292, 0, 0, 589829, 131072, 0, 655365, 0, 0, 720902, 0, 0, 786438, 0, 0, 851975, 0, 0, 917511, 0, 0, 983048, 0, 0, 1048584, 0, 0, 1114121, 0, 0, 1179657, 0, 0, 1245194, 0, 0, 1310730, 0, 0, 1376267, 0, 0, 589828, 0, 0, 655364, 0, 0, 720901, 0, 0, 786437, 0, 0, 851974, 0, 0, 917510, 0, 0, 983047, 0, 0, 1048583, 0, 0, 1114120, 0, 0, 1179656, 0, 0, 1245193, 131072, 0, 1310729, 196608, 0, 1376266, 0, 0, 1441802, 0, 0, 655363, 65536, 0, 720900, 65536, 0, 786436, 0, 0, 851973, 0, 0, 917509, 0, 0, 983046, 196608, 0, 1048582, 0, 0, 1114119, 131072, 0, 1179655, 65536, 0, 1310728, 65536, 0, 1245192, 0, 0, 1376265, 0, 0, 1441801, 0, 0, 1507338, 0, 0, 720899, 131072, 0, 786435, 0, 0, 851972, 0, 0, 917508, 0, 0, 983045, 0, 0, 1048581, 0, 0, 1114118, 0, 0, 1179654, 0, 0, 1245191, 0, 0, 1310727, 0, 0, 1376264, 0, 0, 1441800, 0, 0, 1507337, 0, 0, 1572873, 0, 0, 786434, 0, 0, 851971, 0, 0, 917507, 0, 0, 983044, 0, 0, 1048580, 131072, 0, 1245190, 131072, 0, 1114117, 0, 0, 1179653, 0, 0, 1310726, 65536, 0, 1376263, 65536, 0, 1441799, 0, 0, 1507336, 0, 0, 1572872, 0, 0, 1638409, 0, 0, 851970, 131072, 0, 1048579, 131072, 0, 917506, 0, 0, 983043, 0, 0, 1114116, 0, 0, 1179652, 0, 0, 1245189, 0, 0, 1310725, 131072, 0, 1376262, 65536, 0, 1441798, 131072, 0, 1507335, 0, 0, 1572871, 65536, 0, 1376261, 65536, 0, 917505, 0, 0, 983042, 0, 0, 1048578, 0, 0, 1114115, 0, 0, 1179651, 0, 0, 1245188, 0, 0, 1310724, 0, 0, 1638408, 0, 0, 1703944, 0, 0, 1441797, 0, 0, 1507334, 0, 0, 1572870, 0, 0, 1638407, 0, 0, 1703943, 0, 0, 1769480, 0, 0, 983041, 196608, 0, 1048577, 0, 0, 1114114, 131072, 0, 1245187, 196608, 0, 1179650, 0, 0, 1310723, 0, 0, 1376260, 196608, 0, 1441796, 0, 0, 1507333, 0, 0, 1572869, 0, 0, 1638406, 65536, 0, 1769479, 65536, 0, 1703942, 0, 0, 1835015, 0, 0, 1048576, 0, 0, 1114113, 65536, 0, 1376259, 65536, 0, 1179649, 0, 0, 1245186, 0, 0, 1310722, 0, 0, 1441795, 0, 0, 1507332, 0, 0, 1572868, 0, 0, 1638405, 0, 0, 1703941, 0, 0, 1769478, 196608, 0, 1900551, 196608, 0, 1835014, 131072, 0, 1114111, 262144, 0, 1114112, 262144, 0, 1179648, 262144, 0, 1245185, 262144, 0, 1310721, 262144, 0, 1376258, 262144, 0, 1441794, 262144, 0, 1507331, 262144, 0, 1572867, 262144, 0, 1638404, 262144, 0, 1703940, 262144, 0, 1769477, 262144, 0, 1835013, 262144, 0, 1900550, 262144, 0, 1966086, 262144, 0, 2031623, 262144, 0, 1966087, 262144, 0, 1900552, 262144, 0, 1835016, 262144, 0, 1769481, 262144, 0, 1703945, 262144, 0, 1638410, 262144, 0, 1572874, 262144, 0, 1507339, 262144, 0, 1441803, 262144, 0, 1376268, 262144, 0, 1310732, 262144, 0, 1245197, 262144, 0, 1179661, 262144, 0, 1114126, 262144, 0, 1048590, 262144, 0, 983040, 262144, 0, 917504, 262144, 0, 851969, 262144, 0, 786433, 262144, 0, 720898, 262144, 0, 655362, 262144, 0, 589827, 262144, 0, 524291, 262144, 0, 458756, 262144, 0, 393220, 262144, 0, 327685, 262144, 0, 262149, 262144, 0, 196614, 262144, 0, 983054, 262144, 0, 917517, 262144, 0, 851981, 262144, 0, 786444, 262144, 0, 720908, 262144, 0, 655371, 262144, 0, 589835, 262144, 0, 524298, 262144, 0, 458762, 262144, 0, 393225, 262144, 0, 327689, 262144, 0, 262152, 262144, 0, 196616, 262144, 0, 65543, 262144, 0, 131079, 262144, 0, 131078, 262144, 0)
+
+[node name="Spawn1" type="Node2D" parent="." groups=["spawns"]]
+position = Vector2(192, 544)
+
+[node name="Spawn2" type="Node2D" parent="." groups=["spawns"]]
+position = Vector2(1728, 544)
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("hurt_state")]
+material = SubResource("ShaderMaterial_tpxik")
+position = Vector2(960, 544)
+script = ExtResource("5_ijaxx")
+input_enabled = false
+hurt_state = NodePath("StateMachine/HurtState")
+
+[node name="Sword" type="Area2D" parent="Player"]
+use_parent_material = true
+position = Vector2(32, 0)
+monitorable = false
+script = ExtResource("6_eld47")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Sword"]
+use_parent_material = true
+position = Vector2(0, -80)
+texture = ExtResource("7_vyyh4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Sword"]
+position = Vector2(0, -84)
+shape = Sub

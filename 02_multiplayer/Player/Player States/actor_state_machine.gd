@@ -11,4 +11,5 @@ func init(actor: Actor):
 
 
 func _on_animation_player_animation_finished(anim_name):
-    current_state._animation_finished(anim_name)
+    if anim_name == current_state.state_animation_name:
+        current_state._animation_finished()

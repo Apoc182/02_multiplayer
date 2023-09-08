@@ -2,19 +2,20 @@ class_name Actor
 extends CharacterBody2D
 
 
-const SPEED: int = 480
+const MOVE_SPEED: int = 480
+const KNOCKBACK_SPEED: int = 960
 
-var color: Color
+var color: Color = Color.GRAY
 var state_machine: StateMachine
 var animation_player: AnimationPlayer
+var damage_direction: Vector2 = Vector2.ZERO
 
-@export var input_enabled: bool = true
+@export var hurt_state: ActorState
 
 @onready var health: Health = $Health
 
-
 func is_this_client() -> bool:
-    return $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
+    return true
 
 func _physics_process(delta):
     if not is_this_client():
@@ -32,16 +33,15 @@ func _ready():
 
 
 func get_input_direction() -> Vector2:
-    if input_enabled:
-        return Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
-    else:
-        return Vector2.ZERO
+    return Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
 
 
 func _on_hurtbox_hit(damage, direction):
     if not is_this_client():
         return
     health.take_damage(damage)
+    damage_direction = direction
+    state_machine.change_state(hurt_state)
 
 
 func _on_health_changed(current_health):

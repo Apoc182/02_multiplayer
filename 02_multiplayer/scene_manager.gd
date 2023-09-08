@@ -10,7 +10,7 @@ func _ready():
         var current_player = player_scene.instantiate()
         current_player.name = str(GameManager.players[i].id)
         current_player.color = player_color
-        add_child(current_player)
+        $TileMap.add_child(current_player)
         for spawn in get_tree().get_nodes_in_group("spawns"):
             if spawn.name == "Spawn" + str(index):
                 print(current_player)
@@ -18,5 +18,5 @@ func _ready():
         index += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
     pass

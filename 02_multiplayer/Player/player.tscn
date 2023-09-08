@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1sge3nyw77iq"]
+[gd_scene load_steps=22 format=3 uid="uid://durrpn2bcnie8"]
 
+[ext_resource type="Shader" path="res://white.gdshader" id="1_7ated"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_m6hp7"]
 [ext_resource type="Texture2D" uid="uid://c2vn0b72e5mt5" path="res://Player/player.png" id="2_rqeuv"]
 [ext_resource type="Texture2D" uid="uid://o4mfccqnn30v" path="res://Player/sword.png" id="3_4avqs"]
@@ -7,12 +8,110 @@
 [ext_resource type="Script" path="res://Health/hurt_box.gd" id="4_huhoq"]
 [ext_resource type="Script" path="res://Health/hit_box.gd" id="5_7x4o6"]
 [ext_resource type="Script" path="res://Health/health.gd" id="6_6l17m"]
-[ext_resource type="Script" path="res://Player/actor_state_machine.gd" id="8_ylo5f"]
-[ext_resource type="Script" path="res://Player/move_state.gd" id="9_xna8r"]
-[ext_resource type="Script" path="res://Player/attack_state.gd" id="10_juoj0"]
+[ext_resource type="Script" path="res://Player/Player States/actor_state_machine.gd" id="8_u61qh"]
+[ext_resource type="Script" path="res://Player/Player States/move_state.gd" id="9_m6mpj"]
+[ext_resource type="Script" path="res://Player/Player States/attack_state.gd" id="10_kvqxl"]
+[ext_resource type="Script" path="res://Player/Player States/hurt_state.gd" id="12_h1jxc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_du6cs"]
-size = Vector2(16, 56)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpxik"]
+resource_local_to_scene = true
+shader = ExtResource("1_7ated")
+shader_parameter/active = false
+
+[sub_resource type="Animation" id="Animation_5v8xc"]
+resource_name = "hurt"
+length = 0.166675
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:material:shader_parameter/active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_rgjwt"]
+resource_name = "idle"
+length = 0.666675
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(32, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_lilhp"]
 resource_name = "slash"
@@ -55,49 +154,9 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_rgjwt"]
-resource_name = "idle"
-length = 0.80001
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(32, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t8xa4"]
 _data = {
+"hurt": SubResource("Animation_5v8xc"),
 "idle": SubResource("Animation_rgjwt"),
 "slash": SubResource("Animation_lilhp")
 }
@@ -105,6 +164,9 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmdc3"]
 radius = 8.0
 height = 32.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_du6cs"]
+size = Vector2(16, 56)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rkysv"]
 radius = 16.0
@@ -127,29 +189,24 @@ properties/3/path = NodePath("Label:text")
 properties/3/spawn = true
 properties/3/sync = true
 properties/3/watch = false
+properties/4/path = NodePath("AnimationPlayer:current_animation")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_state")]
+material = SubResource("ShaderMaterial_tpxik")
+collision_layer = 0
 script = ExtResource("1_m6hp7")
-
-[node name="Sword" type="Area2D" parent="."]
-position = Vector2(32, 0)
-monitoring = false
-monitorable = false
-script = ExtResource("5_7x4o6")
-
-[node name="Sprite2D" type="Sprite2D" parent="Sword"]
-position = Vector2(0, -80)
-texture = ExtResource("3_4avqs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
-position = Vector2(0, -84)
-shape = SubResource("RectangleShape2D_du6cs")
+hurt_state = NodePath("StateMachine/HurtState")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -40)
 texture = ExtResource("2_rqeuv")
 
 [node name="Eyes" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -40)
 texture = ExtResource("3_nuegn")
 
@@ -162,6 +219,21 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rmdc3")
+
+[node name="Sword" type="Area2D" parent="."]
+position = Vector2(32, 0)
+monitoring = false
+monitorable = false
+script = ExtResource("5_7x4o6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sword"]
+use_parent_material = true
+position = Vector2(0, -80)
+texture = ExtResource("3_4avqs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(0, -84)
+shape = SubResource("RectangleShape2D_du6cs")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 position = Vector2(0, -80)
@@ -187,20 +259,25 @@ offset_bottom = -80.0
 text = "Unnamed"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
-script = ExtResource("8_ylo5f")
+script = ExtResource("8_u61qh")
 current_state = NodePath("MoveState")
 
 [node name="MoveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
-script = ExtResource("9_xna8r")
+script = ExtResource("9_m6mpj")
 attack_state = NodePath("../AttackState")
 state_animation_name = "idle"
 
 [node name="AttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
-script = ExtResource("10_juoj0")
+script = ExtResource("10_kvqxl")
 move_state = NodePath("../MoveState")
 state_animation_name = "slash"
 
-[connection signal="area_entered" from="Sword" to="Sword" method="_on_area_entered"]
+[node name="HurtState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("12_h1jxc")
+move_state = NodePath("../MoveState")
+state_animation_name = "hurt"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="Sword" to="Sword" method="_on_area_entered"]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_changed"]

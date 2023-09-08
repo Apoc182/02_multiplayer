@@ -9,5 +9,5 @@ func _enter():
     actor.animation_player.play(state_animation_name)
 
 
-func _animation_finished(_anim_name):
+func _animation_finished():
     pass
