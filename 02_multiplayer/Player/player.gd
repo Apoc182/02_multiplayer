@@ -23,6 +23,7 @@ func _physics_process(_delta):
 func _ready():
     $MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
     $Sprite2D.modulate = color
+    $Label.text = GameManager.players[multiplayer.get_unique_id()].name
 
 
 func get_input_direction() -> Vector2:

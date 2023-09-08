@@ -31,6 +31,10 @@ properties/2/path = NodePath("Sprite2D:modulate")
 properties/2/spawn = true
 properties/2/sync = true
 properties/2/watch = false
+properties/3/path = NodePath("Label:text")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_m6hp7")
@@ -67,6 +71,13 @@ max_health = 50.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_r4jug")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -36.0
+offset_top = -106.0
+offset_right = 40.0
+offset_bottom = -80.0
+text = "Unnamed"
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="area_entered" from="HitBox" to="HitBox" method="_on_area_entered"]
