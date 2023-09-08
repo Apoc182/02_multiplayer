@@ -1,38 +1,44 @@
+class_name Actor
 extends CharacterBody2D
 
 
-const SPEED: int = 384
+const SPEED: int = 480
+
+var color: Color
+var state_machine: StateMachine
+var animation_player: AnimationPlayer
+
+@export var input_enabled: bool = true
 
 @onready var health: Health = $Health
-var color: Color 
+
 
 func is_this_client() -> bool:
     return $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()
 
-func _physics_process(_delta):
+func _physics_process(delta):
     if not is_this_client():
         return
-    
-    var input_direction = get_input_direction()
-    input_direction = cartesian_to_isometric(get_input_direction())
-    
-    velocity = input_direction * SPEED
-    move_and_slide()
+    state_machine._physics_update(delta)
 
 
 func _ready():
     $MultiplayerSynchronizer.set_multiplayer_authority(str(name).to_int())
     $Sprite2D.modulate = color
     $Label.text = GameManager.players[multiplayer.get_unique_id()].name
+    animation_player = $AnimationPlayer
+    state_machine = $StateMachine
+    state_machine.init(self)
 
 
 func get_input_direction() -> Vector2:
-    var input_direction_x = Input.get_axis("move_left", "move_right")
-    var input_direction_y = Input.get_axis("move_up", "move_down")
-    return Vector2(input_direction_x, input_direction_y)
+    if input_enabled:
+        return Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized()
+    else:
+        return Vector2.ZERO
 
 
-func _on_hurtbox_hit(damage):
+func _on_hurtbox_hit(damage, direction):
     if not is_this_client():
         return
     health.take_damage(damage)
