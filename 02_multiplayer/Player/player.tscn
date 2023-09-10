@@ -663,6 +663,14 @@ properties/5/path = NodePath("StateMachine:current_state_name")
 properties/5/spawn = true
 properties/5/sync = true
 properties/5/watch = false
+properties/6/path = NodePath("HealthBar:modulate")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+properties/7/path = NodePath("HealthBar:value")
+properties/7/spawn = true
+properties/7/sync = true
+properties/7/watch = false
 
 [node name="Player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_tpxik")
