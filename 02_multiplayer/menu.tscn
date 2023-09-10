@@ -15,59 +15,92 @@ script = ExtResource("1_8xvwu")
 
 [node name="HostGame" type="Button" parent="."]
 layout_mode = 0
-offset_left = 800.0
+offset_left = 768.0
 offset_top = 304.0
 offset_right = 944.0
 offset_bottom = 384.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 40
 text = "Host"
 
 [node name="JoinGame" type="Button" parent="."]
 layout_mode = 0
 offset_left = 976.0
 offset_top = 304.0
-offset_right = 1120.0
+offset_right = 1152.0
 offset_bottom = 384.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 40
 text = "Join"
 
 [node name="StartGame" type="Button" parent="."]
 layout_mode = 0
-offset_left = 800.0
-offset_top = 592.0
-offset_right = 1120.0
-offset_bottom = 672.0
-theme_override_font_sizes/font_size = 50
+offset_left = 768.0
+offset_top = 400.0
+offset_right = 1152.0
+offset_bottom = 480.0
+theme_override_font_sizes/font_size = 40
 text = "Start Game"
 
 [node name="Name" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 800.0
-offset_top = 400.0
-offset_right = 1120.0
-offset_bottom = 480.0
-theme_override_font_sizes/font_size = 50
+offset_left = 768.0
+offset_top = 592.0
+offset_right = 1152.0
+offset_bottom = 672.0
+theme_override_font_sizes/font_size = 40
 placeholder_text = "Your name"
 alignment = 1
 
 [node name="Address" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 800.0
+offset_left = 768.0
 offset_top = 496.0
-offset_right = 1120.0
+offset_right = 1152.0
 offset_bottom = 576.0
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 40
 text = "127.0.0.1"
 placeholder_text = "IP Address"
 alignment = 1
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="."]
 layout_mode = 0
-offset_left = 800.0
+offset_left = 768.0
 offset_top = 688.0
-offset_right = 1120.0
+offset_right = 1152.0
 offset_bottom = 768.0
 color = Color(0.301961, 0.14902, 0.537255, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 496.0
+offset_right = 704.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 40
+text = "IP Address:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 592.0
+offset_right = 704.0
+offset_bottom = 672.0
+theme_override_font_sizes/font_size = 40
+text = "Name:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 688.0
+offset_right = 704.0
+offset_bottom = 768.0
+theme_override_font_sizes/font_size = 40
+text = "Colour:"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [connection signal="pressed" from="HostGame" to="." method="_on_host_game_pressed"]
 [connection signal="pressed" from="JoinGame" to="." method="_on_join_game_pressed"]
