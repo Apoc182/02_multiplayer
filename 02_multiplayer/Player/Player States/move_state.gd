@@ -9,5 +9,5 @@ func _physics_update(_delta):
     actor.velocity = input_direction * actor.MOVE_SPEED
     actor.move_and_slide()
     
-    if Input.is_action_just_pressed("action"):
+    if Input.is_action_just_pressed("action") and state_machine.previous_state_name != "attack":
         state_machine.change_state("attack")

@@ -29,8 +29,9 @@ func _ready():
     update_health_bar(health.current_health)
     
 
-func _process(_delta):
+func _process(delta):
     set_facing_direction(facing_direction)
+    state_machine._update(delta)
 
 
 func _physics_process(delta):
