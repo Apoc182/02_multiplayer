@@ -6,15 +6,12 @@ var color: Color = Color.GRAY
 var state_machine: StateMachine
 var animation_tree: AnimationTree
 var knockback_direction: Vector2 = Vector2.ZERO
-var facing_direction = FacingDirection.RIGHT
+@export var facing_direction = FacingDirection.RIGHT
 
 const MOVE_SPEED: int = 480
 const KNOCKBACK_SPEED: int = 960
 
 enum FacingDirection {LEFT = -1, RIGHT = 1}
-
-@export var hurt_state: ActorState
-@export var sword_hit_state: ActorState
 
 @onready var health: Health = $Health
 @onready var health_bar = $HealthBar
@@ -32,8 +29,12 @@ func _ready():
     update_health_bar(health.current_health)
     
 
+func _process(_delta):
+    set_facing_direction(facing_direction)
+
 
 func _physics_process(delta):
+
     if not is_this_client():
         return
     
@@ -64,7 +65,7 @@ func _on_hurtbox_hit(damage, direction):
     
     health.take_damage(damage)
     knockback_direction = direction
-    state_machine.change_state(hurt_state)
+    state_machine.change_state("hurt")
 
 
 func _on_sword_hit(direction):
@@ -72,7 +73,7 @@ func _on_sword_hit(direction):
         return
     
     knockback_direction = direction
-    state_machine.change_state(sword_hit_state)
+    state_machine.change_state("hit")
 
 
 func _on_health_changed(current_health):
@@ -116,7 +117,7 @@ func set_facing_direction(direction: float):
     if direction == 1:
         facing_direction = FacingDirection.RIGHT
 
-    animation_tree.set("parameters/idle/blend_position", facing_direction)
-    animation_tree.set("parameters/slash/blend_position", facing_direction)
+    animation_tree.set("parameters/move/blend_position", facing_direction)
+    animation_tree.set("parameters/attack/blend_position", facing_direction)
     animation_tree.set("parameters/hurt/blend_position", facing_direction)
     animation_tree.set("parameters/hit/blend_position", facing_direction)

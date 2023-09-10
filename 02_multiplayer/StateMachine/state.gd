@@ -3,6 +3,7 @@ extends Node
 
 
 var state_machine: StateMachine
+@export var state_name: String
 
 
 func _update(_delta):

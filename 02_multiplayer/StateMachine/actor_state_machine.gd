@@ -6,6 +6,7 @@ func init(actor: Actor):
     for child in get_children():
         if(child is State):
             child.state_machine = self
+            state_reference[child.state_name] = child
             child.actor = actor
     current_state._enter()
 

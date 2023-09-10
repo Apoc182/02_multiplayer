@@ -8,146 +8,16 @@
 [ext_resource type="Script" path="res://Health/hurt_box.gd" id="4_huhoq"]
 [ext_resource type="Script" path="res://Health/hit_box.gd" id="5_7x4o6"]
 [ext_resource type="Script" path="res://Health/health.gd" id="6_6l17m"]
-[ext_resource type="Script" path="res://StateMachine/actor_state_machine.gd" id="9_8bw8c"]
+[ext_resource type="Script" path="res://Player/Player States/actor_state_machine.gd" id="8_u61qh"]
 [ext_resource type="Script" path="res://Player/Player States/move_state.gd" id="9_m6mpj"]
 [ext_resource type="Script" path="res://Player/Player States/attack_state.gd" id="10_kvqxl"]
 [ext_resource type="Script" path="res://Player/Player States/hurt_state.gd" id="12_h1jxc"]
-[ext_resource type="Script" path="res://Player/Player States/hit_state.gd" id="13_wuhce"]
+[ext_resource type="Script" path="res://Player/sword_hit_state.gd" id="13_x1nun"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tpxik"]
 resource_local_to_scene = true
 shader = ExtResource("1_7ated")
 shader_parameter/active = false
-
-[sub_resource type="Animation" id="Animation_lilhp"]
-resource_name = "attack_left"
-length = 0.333342
-step = 0.0833333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [6.28319, 4.71239, 3.14159, 1.5708, 0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sword/Sprite2D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword:monitorable")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_7xdw5"]
-resource_name = "attack_right"
-length = 0.333342
-step = 0.0833333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.5708, 3.14159, 4.71239, 6.28319]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sword:monitoring")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sword/Sprite2D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword:monitorable")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_gajqg"]
 resource_name = "hit_left"
@@ -200,18 +70,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword:monitorable")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_mxy0r"]
@@ -331,18 +189,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(-1, 1)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sword:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_50adm"]
 resource_name = "hurt_right"
@@ -408,21 +254,9 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sword:monitorable")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_sanpv"]
-resource_name = "move_left"
+resource_name = "idle_left"
 length = 0.666675
 loop_mode = 1
 step = 0.0833333
@@ -474,21 +308,9 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(-1, 1)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword:monitorable")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_rgjwt"]
-resource_name = "move_right"
+resource_name = "idle_right"
 length = 0.666675
 loop_mode = 1
 step = 0.0833333
@@ -540,43 +362,124 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Sword:monitorable")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+
+[sub_resource type="Animation" id="Animation_lilhp"]
+resource_name = "slash_left"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [6.28319, 4.71239, 3.14159, 1.5708, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sword/Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7xdw5"]
+resource_name = "slash_right"
+length = 0.333342
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 3.14159, 4.71239, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sword:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sword/Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t8xa4"]
 _data = {
-"attack_left": SubResource("Animation_lilhp"),
-"attack_right": SubResource("Animation_7xdw5"),
 "hit_left": SubResource("Animation_gajqg"),
 "hit_right": SubResource("Animation_mxy0r"),
 "hurt_left": SubResource("Animation_oaur5"),
 "hurt_right": SubResource("Animation_50adm"),
-"move_left": SubResource("Animation_sanpv"),
-"move_right": SubResource("Animation_rgjwt")
+"idle_left": SubResource("Animation_sanpv"),
+"idle_right": SubResource("Animation_rgjwt"),
+"slash_left": SubResource("Animation_lilhp"),
+"slash_right": SubResource("Animation_7xdw5")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1brdw"]
-animation = &"attack_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqta1"]
-animation = &"attack_right"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_65oxt"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_1brdw")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_jqta1")
-blend_point_1/pos = 1.0
-blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fqoa2"]
 animation = &"hit_left"
@@ -605,10 +508,10 @@ blend_point_1/pos = 1.0
 blend_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0xgfv"]
-animation = &"move_left"
+animation = &"idle_left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rr4ka"]
-animation = &"move_right"
+animation = &"idle_right"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_6nlpi"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_0xgfv")
@@ -617,15 +520,28 @@ blend_point_1/node = SubResource("AnimationNodeAnimation_rr4ka")
 blend_point_1/pos = 1.0
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1brdw"]
+animation = &"slash_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqta1"]
+animation = &"slash_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_65oxt"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_1brdw")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_jqta1")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_njxue"]
-states/attack/node = SubResource("AnimationNodeBlendSpace1D_65oxt")
-states/attack/position = Vector2(577, 107)
 states/hit/node = SubResource("AnimationNodeBlendSpace1D_1tpwf")
 states/hit/position = Vector2(456, 35)
 states/hurt/node = SubResource("AnimationNodeBlendSpace1D_lrqwx")
 states/hurt/position = Vector2(456, 148)
-states/move/node = SubResource("AnimationNodeBlendSpace1D_6nlpi")
-states/move/position = Vector2(334, 87)
+states/idle/node = SubResource("AnimationNodeBlendSpace1D_6nlpi")
+states/idle/position = Vector2(334, 87)
+states/slash/node = SubResource("AnimationNodeBlendSpace1D_65oxt")
+states/slash/position = Vector2(577, 107)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rmdc3"]
 radius = 8.0
@@ -659,15 +575,18 @@ properties/4/path = NodePath(".:facing_direction")
 properties/4/spawn = true
 properties/4/sync = true
 properties/4/watch = false
-properties/5/path = NodePath("StateMachine:current_state_name")
+properties/5/path = NodePath("StateMachine:state_name")
 properties/5/spawn = true
 properties/5/sync = true
 properties/5/watch = false
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hurt_state", "sword_hit_state")]
 material = SubResource("ShaderMaterial_tpxik")
 collision_layer = 0
 script = ExtResource("1_m6hp7")
+facing_direction = null
+hurt_state = NodePath("StateMachine/HurtState")
+sword_hit_state = NodePath("StateMachine/SwordHitState")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -688,24 +607,24 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_njxue")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/attack/blend_position = 1.0
-parameters/hit/blend_position = 1.0
-parameters/hurt/blend_position = 1.0
-parameters/move/blend_position = 1.0
+parameters/hit/blend_position = -0.998498
+parameters/hurt/blend_position = 0.375375
+parameters/idle/blend_position = -0.462462
+parameters/slash/blend_position = 1.41291
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rmdc3")
 
 [node name="Sword" type="Area2D" parent="."]
+position = Vector2(-32, 8)
 monitoring = false
-monitorable = false
 script = ExtResource("5_7x4o6")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sword"]
 use_parent_material = true
 position = Vector2(0, -80)
-scale = Vector2(1e-05, 1e-05)
+scale = Vector2(-1, 1)
 texture = ExtResource("3_4avqs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
@@ -735,28 +654,30 @@ offset_right = 40.0
 offset_bottom = -80.0
 text = "Unnamed"
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "previous_state")]
-script = ExtResource("9_8bw8c")
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("8_u61qh")
 current_state = NodePath("MoveState")
-current_state_name = "move"
-previous_state = NodePath("MoveState")
-previous_state_name = "move"
 
 [node name="MoveState" type="Node" parent="StateMachine"]
 script = ExtResource("9_m6mpj")
+attack_state = null
+state_animation_name = null
 state_name = "move"
 
-[node name="AttackState" type="Node" parent="StateMachine"]
+[node name="AttackState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
 script = ExtResource("10_kvqxl")
-state_name = "attack"
+move_state = NodePath("../MoveState")
+state_animation_name = "slash"
 
-[node name="HurtState" type="Node" parent="StateMachine"]
+[node name="HurtState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
 script = ExtResource("12_h1jxc")
-state_name = "hurt"
+move_state = NodePath("../MoveState")
+state_animation_name = "hurt"
 
-[node name="HitState" type="Node" parent="StateMachine"]
-script = ExtResource("13_wuhce")
-state_name = "hit"
+[node name="SwordHitState" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("13_x1nun")
+move_state = NodePath("../MoveState")
+state_animation_name = "hit"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 modulate = Color(0, 1, 0, 1)
